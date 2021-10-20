@@ -1,12 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>holaaaaaa</h1>
-</body>
-</html>
+{% extends  "./plantilla.html" %}
+
+{%block title%} Gestion de datos {%endblock%}
+
+{% block body %}
+<div class = "row">
+    <div class = "col-sm-12 col-md-6 col-lg-4 col-xl-4">
+      <h2>Gestion de Datos</h2>
+      <div class = "card">
+          <div class="class">
+              <div class="class-body">
+                  <form enctype="multipart/form-data"action="" method="POST">
+                      <div class="form-group">
+                          <input type="text" id="txtId" name="txtId" class="form-control" placeholder="Id" minlength="6" max="6" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="text" id="txtName" name="txtName" class="form-control" placeholder="Name" minlength="6" max="6" required>
+                      </div>
+                      <div enctype="multipart/form-data" class="form-group">
+                        <input value ="Cargar Imagen"  class = "btn btn-primary" type="submit">
+                      </div>
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class = "col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Listado de Datos</h1>
+       <div class= "table-responsive">
+           <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>nombre</th>
+                        <th>imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for c in datos%}
+                    <tr>
+                        <td>{{c.id}}</td>
+                        <td>{{c.name}}</td>
+                        <td>{{c.image}}</td>
+                    {%endfor%}    
+                    </tr>
+                </tbody>       
+           </table>
+       </div>
+    </div>
+</div>
+{%endblock%}
