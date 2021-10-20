@@ -1,4 +1,6 @@
 {% extends  "./plantilla.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
 
 {%block title%} Gestion de datos {%endblock%}
 
@@ -9,7 +11,7 @@
       <div class = "card">
           <div class="class">
               <div class="class-body">
-                  <form enctype="multipart/form-data"action="" method="POST">
+                  {% comment %} <form enctype="multipart/form-data"action="" method="POST">
                       <div class="form-group">
                           <input type="text" id="txtId" name="txtId" class="form-control" placeholder="Id" minlength="6" max="6" required>
                       </div>
@@ -22,7 +24,14 @@
                       <div class="form-group">
                           <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                       </div>
-                  </form>
+                  </form> {% endcomment %}
+                    <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{formularioItem|crispy}}
+                        {% if formularioItem %}
+                            <input type="submit" value="Guardar" class="btn btn-success">
+                        {% endif %}
+                    </form>
               </div>
           </div>
       </div>
@@ -35,15 +44,17 @@
                     <tr>
                         <th>id</th>
                         <th>nombre</th>
+                        <th>precio</th>
                         <th>imagen</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {%for c in datos%}
+                    {%for c in item%}
                     <tr>
                         <td>{{c.id}}</td>
                         <td>{{c.name}}</td>
-                        <td>{{c.image}}</td>
+                        <td>{{c.price}}</td>
+                        <td><img src="{{c.image.url}}" style="width:40px"></td>
                     {%endfor%}    
                     </tr>
                 </tbody>       
