@@ -1,7 +1,9 @@
 asgiref==3.4.1
 Django==3.2.8
 django-apps==0.1.0
+django-crispy-forms==1.13.0
 django-db==0.0.7
+djangorestframework==3.12.4
 Pillow==8.4.0
 PyMySQL==1.0.2
 pytz==2021.3
