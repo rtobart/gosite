@@ -1,5 +1,5 @@
 import os, sys
-from tensorflow.python.keras.processing.image import ImageDataGenerator
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras import backend as bk
 from tensorflow.python.keras import optimizers
 from tensorflow.python.keras.layers import Dropout, Flatten, Dense, Activation, Convolution2D, MaxPooling2D
@@ -66,7 +66,7 @@ rnc.add(Dropout(0.5))
 rnc.add(Dense(clases, activation='softmax'))
 
 #compilación de capas
-rnc.compile(loss='categorical_crossentropy',optimizer=optimizers.Adam(lr=lr), metrics=['accuracy'])
+rnc.compile(loss='categorical_crossentropy',optimizer=optimizers.adam_v2.Adam(lr=lr), metrics=['accuracy'])
 
 
 #ajustes de los ciclos
@@ -74,7 +74,7 @@ rnc.fit_generator(
     generador_entrenamiento,
     steps_per_epoch=pasos,
     epochs=epocas,
-    validiation_data=generador_validacion,
+    validation_data=generador_validacion,
     validation_steps=validation_steps
 )
 
