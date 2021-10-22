@@ -8,8 +8,8 @@ from tensorflow.python.keras.models import Sequential
 bk.clear_session()
 
 #directorio
-datos_entrenamiento = './datos/productos'
-datos_validacion = './datos/validacion'
+datos_entrenamiento = './ripley/entrenamiento'
+datos_validacion = './ripley/validacion'
 
 ##parametros del entrenamiento
 epocas = 20
