@@ -20,8 +20,10 @@ def predecir(archivo):
     resultado = arreglo[0]
     respuesta = np.argmax(resultado)
     if respuesta == 0:
-        print("pred: Zapatilla")
+        print("pred: barra olimpica")
     elif respuesta == 1:
-        print("pred: Cama")
+        print("pred: mancuerna")
     elif respuesta == 3:
-        print("")
+        print("pred: pesa rusa")
+    
+predecir('mancuerna.jpg')
