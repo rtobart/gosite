@@ -19,11 +19,12 @@ def predecir(archivo):
     arreglo = rnc.predict(x)
     resultado = arreglo[0]
     respuesta = np.argmax(resultado)
+    tipo = ""
     if respuesta == 0:
-        print("pred: barra olimpica")
+        tipo = "barra olimpica"
     elif respuesta == 1:
-        print("pred: mancuerna")
+        tipo = "mancuerna"
     elif respuesta == 3:
-        print("pred: pesa rusa")
+        tipo = "pesa rusa"
+    return tipo
     
-predecir('mancuerna.jpg')

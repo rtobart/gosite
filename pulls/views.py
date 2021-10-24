@@ -4,6 +4,8 @@ from .forms import frmItem
 from django.http import HttpResponse
 from rest_framework import viewsets
 from .serializers import ItemSerializers
+from .prediccion import predecir
+from django.core.files.storage import default_storage
 
 
 def home(request):
@@ -15,12 +17,18 @@ def home(request):
         }
     if request.method == "POST":
         data = request.POST
-        files = request.FILES
-        formularioItem = frmItem(data, files)
-        if formularioItem.is_valid():
-            formularioItem.save()
-            formularioItem.clean()
-        return render(request,"formulario.html",context)
+        files = request.FILES['image']
+        # formularioItem = frmItem(data, files)
+        # arcImagen = files['image']
+        # imagen = arcImagen['InMemoryUploadedFile']            
+        file = request.FILES.get('image')
+        img = file.open()
+        prediccion = predecir(img)
+        print(prediccion)
+        # if formularioItem.is_valid():
+        #     formularioItem.save()
+        #     formularioItem.clean()
+        # return render(request,"formulario.html",context)
     return render(request,"formulario.html",context)
 
 class ItemViewSet(viewsets.ModelViewSet):
