@@ -25,12 +25,17 @@
                           <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
                       </div>
                   </form> {% endcomment %}
-                    <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                            {{formularioItem|crispy}}
-                            {% if formularioItem %}
+                  <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{formularioItem|crispy}}
+                        {% if formularioItem %}
+                            <script>
+                                alert('{{ message }}');
+                            </script>
+                        
                             <input type="submit" value="Guardar" class="btn btn-success">
                         {% endif %}
+                        
                     </form>
               </div>
           </div>
@@ -63,3 +68,11 @@
     </div>
 </div>
 {%endblock%}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
