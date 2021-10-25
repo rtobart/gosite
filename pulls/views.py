@@ -13,7 +13,8 @@ def home(request):
     formularioItem = frmItem(request.POST or None)
     context = {
         "item": items,
-        "formularioItem": formularioItem
+        "formularioItem": formularioItem,
+        "alert_flag": True
         }
     if request.method == "POST":
         data = request.POST
@@ -24,13 +25,15 @@ def home(request):
         file = request.FILES.get('image')
         img = file.open()
         prediccion = predecir(img)
+        info = 'Estas subiendo un(a) ', prediccion
         print(prediccion)
         print(items)
         if formularioItem.is_valid():
             formularioItem.save()
             formularioItem.clean()
-        return render(request,"formulario.html",context, message='Save complete')
-    return render(request,"formulario.html",context, message='Save complete')
+        messages.add_message(request, messages.WARNING, "".join(info))
+        return render(request,"formulario.html",context)
+    return render(request,"formulario.html",context)
 
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Items.objects.all()

@@ -5,6 +5,18 @@
 {%block title%} Gestion de datos {%endblock%}
 
 {% block body %}
+
+{% for message in messages %}
+<div class="container-fluid p-0 overflow-hidden">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
+
 <div class = "row">
     <div class = "col-sm-12 col-md-6 col-lg-4 col-xl-4">
       <h2>Gestion de Datos</h2>
@@ -29,10 +41,24 @@
                     {% csrf_token %}
                         {{formularioItem|crispy}}
                         {% if formularioItem %}
-                            <script>
-                                alert('{{ message }}');
-                            </script>
-                        
+                        {% if alert_flag %}
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                                <script>alert("{{ message }}")</script>  
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                                {{ message }}
+                            </li>
+                            {% endfor %}
+                        </ul> 
+                        {% endif %}-->
                             <input type="submit" value="Guardar" class="btn btn-success">
                         {% endif %}
                         
@@ -68,11 +94,3 @@
     </div>
 </div>
 {%endblock%}
-
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
