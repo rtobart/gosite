@@ -20,18 +20,14 @@ def home(request):
         data = request.POST
         files = request.FILES
         formularioItem = frmItem(data, files)
-        # arcImagen = files['image']
-        # imagen = arcImagen['InMemoryUploadedFile']            
-        file = request.FILES.get('image')
-        img = file.open()
-        prediccion = predecir(img)
-        info = 'Estas subiendo un(a) ', prediccion
-        print(prediccion)
-        print(items)
         if formularioItem.is_valid():
+            file = request.FILES.get('image')
+            img = file.open()
+            prediccion = predecir(img)
+            info = 'Estas subiendo un(a) ', prediccion
+            messages.add_message(request, messages.WARNING, "".join(info))
             formularioItem.save()
             formularioItem.clean()
-        messages.add_message(request, messages.WARNING, "".join(info))
         return render(request,"formulario.html",context)
     return render(request,"formulario.html",context)
 
